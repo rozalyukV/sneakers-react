@@ -7,6 +7,7 @@ import Drawer from '../drawer/Drawer'
 function App() {
   const [items, setItems] = useState([])
   const [cartItems, setCartItems] = useState([])
+  const [searchValue, setSearchValue] = useState('')
   const [isCartOpened, setIsCartOpened] = useState(false)
 
   useEffect(() => {
@@ -19,6 +20,10 @@ function App() {
     setCartItems((cartItems) => [...cartItems, obj])
   }
 
+  const onChangeSearchInput = (event) => {
+    setSearchValue(event.target.value)
+  }
+
   return (
     <div className="wrapper clear">
       {isCartOpened && (
@@ -27,22 +32,43 @@ function App() {
       <Header onOpenCart={() => setIsCartOpened(true)} />
       <div className="content p-40">
         <div className="d-flex align-center justify-between mb-40">
-          <h1>All sneakers</h1>
+          <h1>
+            {searchValue
+              ? `Searching by request: ${searchValue}`
+              : 'All sneakers'}
+          </h1>
           <div className="search-block d-flex">
             <img src="/img/search.svg" alt="Search" />
-            <input placeholder="Search..." />
+            {searchValue && (
+              <img
+                onClick={() => setSearchValue('')}
+                className="clear cu-p"
+                src="/img/btn-close.svg"
+                alt="Clear"
+              />
+            )}
+            <input
+              onChange={onChangeSearchInput}
+              value={searchValue}
+              placeholder="Search..."
+            />
           </div>
         </div>
         <div className="d-flex flex-wrap">
-          {items.map((item) => (
-            <Card
-              title={item.title}
-              price={item.price}
-              imageUrl={item.imageUrl}
-              onFavoriteAdd={() => console.log('Add to favorite')}
-              onCartAdd={(obj) => onAddToCart(obj)}
-            />
-          ))}
+          {items
+            .filter((item) =>
+              item.title.toLowerCase().includes(searchValue.toLowerCase())
+            )
+            .map((item, index) => (
+              <Card
+                key={index}
+                title={item.title}
+                price={item.price}
+                imageUrl={item.imageUrl}
+                onFavoriteAdd={() => console.log('Add to favorite')}
+                onCartAdd={(obj) => onAddToCart(obj)}
+              />
+            ))}
         </div>
       </div>
     </div>
