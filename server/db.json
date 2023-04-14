@@ -64,9 +64,16 @@
   "cart": [
     {
       "title": "Men's Sneakers Nike Blazer Mid Suede",
-      "imageUrl": "/img/sneakers/3.jpg",
-      "price": 180,
-      "id": 1
+      "imageUrl": "/img/sneakers/1.jpg",
+      "price": 200,
+      "id": 8
+    },
+    {
+      "title": "Men's Sneakers Nike Blazer Mid Suede",
+      "imageUrl": "/img/sneakers/1.jpg",
+      "price": 200,
+      "id": 9
     }
-  ]
+  ],
+  "favorites": []
 }
