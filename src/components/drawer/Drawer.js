@@ -1,4 +1,45 @@
-const Drawer = ({ onCloseCart, onRemoveFromCart, items = [] }) => {
+import { useContext, useState } from 'react'
+import axios from 'axios'
+import AppContext from '../../constext/constext'
+
+import Info from '../info/Info'
+
+const Drawer = ({ onRemoveFromCart }) => {
+  const { cartItems, setIsCartOpened, setCartItems } = useContext(AppContext)
+  const [orderId, setOrderId] = useState(null)
+  const [isOrderComplete, setIsOrderComplete] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const getCartItemsIds = (cartItems) => {
+    return cartItems.map((item) => item.id)
+  }
+
+  const deleteCartItems = async (cartItems) => {
+    const ids = getCartItemsIds(cartItems)
+    const promises = []
+    for (let id of ids) {
+      const promise = axios.delete(`http://localhost:3001/cart/${id}`)
+      promises.push(promise)
+    }
+    return await Promise.all(promises)
+  }
+
+  const onClickOrder = async () => {
+    try {
+      setIsLoading(true)
+      const { data } = await axios.post('http://localhost:3001/orders', {
+        cartItems,
+      })
+      setOrderId(data.id)
+      await deleteCartItems(cartItems)
+      setIsOrderComplete(true)
+      setCartItems([])
+    } catch (error) {
+      alert('Failed to create order!')
+    }
+    setIsLoading(false)
+  }
+
   return (
     <div className="overlay">
       <div className="drawer d-flex flex-column">
@@ -8,15 +49,18 @@ const Drawer = ({ onCloseCart, onRemoveFromCart, items = [] }) => {
             className="closeBtn cu-p"
             src="/img/btn-close.svg"
             alt="Close"
-            onClick={onCloseCart}
+            onClick={() => setIsCartOpened(false)}
           />
         </h2>
 
-        {items.length > 0 ? (
-          <div>
+        {cartItems.length > 0 ? (
+          <div className="d-flex flex-column flex">
             <div className="items flex">
-              {items.map((obj) => (
-                <div className="cartItem d-flex align-center mb-20">
+              {cartItems.map((obj) => (
+                <div
+                  key={obj.id}
+                  className="cartItem d-flex align-center mb-20"
+                >
                   <div
                     style={{ backgroundImage: `url(${obj.imageUrl})` }}
                     className="cartItemImg"
@@ -47,29 +91,29 @@ const Drawer = ({ onCloseCart, onRemoveFromCart, items = [] }) => {
                   <b>67.50$</b>
                 </li>
               </ul>
-              <button className="greenButton">
+              <button
+                disabled={isLoading}
+                onClick={onClickOrder}
+                className="greenButton"
+              >
                 Order <img src="/img/arrow.svg" alt="Arrow" />
               </button>
             </div>
           </div>
         ) : (
-          <div class="cartEmpty d-flex align-center justify-center flex-column flex">
-            <img
-              class="mb-20"
-              width="120px"
-              height="120px"
-              src="/img/empty-cart.jpg"
-              alt="Empty"
-            />
-            <h2>Cart is empty</h2>
-            <p class="opacity-6">
-              Add at least one pair of sneakers to place an order.
-            </p>
-            <button onClick={onCloseCart} className="greenButton">
-              <img src="/img/arrow.svg" alt="Arrow" />
-              Go back
-            </button>
-          </div>
+          <Info
+            title={isOrderComplete ? 'Order is processed!' : 'Cart is empty'}
+            description={
+              isOrderComplete
+                ? `Your order #${orderId} will soon be delivered by courier`
+                : 'Add at least one pair of sneakers to place an order'
+            }
+            image={
+              isOrderComplete
+                ? '/img/complete-order.jpg'
+                : '/img/empty-cart.jpg'
+            }
+          />
         )}
       </div>
     </div>
