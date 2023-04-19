@@ -5,7 +5,9 @@ import AppContext from '../../constext/constext'
 import Info from '../info/Info'
 import { useCart } from '../../hooks/useCart/useCart'
 
-const Drawer = ({ onRemoveFromCart }) => {
+import styles from './drawer.module.scss'
+
+const Drawer = ({ onRemoveFromCart, opened }) => {
   const { setIsCartOpened } = useContext(AppContext)
   const { cartItems, setCartItems, totalPrice } = useCart()
   const [orderId, setOrderId] = useState(null)
@@ -43,8 +45,8 @@ const Drawer = ({ onRemoveFromCart }) => {
   }
 
   return (
-    <div className="overlay">
-      <div className="drawer d-flex flex-column">
+    <div className={`${styles.overlay} ${opened ? styles.overlayVisible : ''}`}>
+      <div className={`${styles.drawer} d-flex flex-column`}>
         <h2 className="d-flex justify-between mb-30">
           Cart
           <img

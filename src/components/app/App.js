@@ -19,37 +19,50 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const cartResponse = await axios.get('http://localhost:3001/cart')
-      const favoritesResponse = await axios.get(
-        'http://localhost:3001/favorites'
-      )
-      const itemsResponse = await axios.get('http://localhost:3001/items')
+      try {
+        const [cartResponse, favoritesResponse, itemsResponse] =
+          await Promise.all([
+            axios.get('http://localhost:3001/cart'),
+            axios.get('http://localhost:3001/favorites'),
+            axios.get('http://localhost:3001/items'),
+          ])
 
-      setIsLoading(false)
+        setIsLoading(false)
 
-      setCartItems(cartResponse.data)
-      setFavorites(favoritesResponse.data)
-      setItems(itemsResponse.data)
+        setCartItems(cartResponse.data)
+        setFavorites(favoritesResponse.data)
+        setItems(itemsResponse.data)
+      } catch (error) {
+        alert('Error while data requesting')
+      }
     }
 
     fetchData()
   }, [])
 
-  const onAddToCart = (obj) => {
-    if (cartItems.find((item) => item.id === obj.id)) {
-      axios.delete(`http://localhost:3001/cart/${obj.id}`)
-      setCartItems((cartItems) =>
-        cartItems.filter((item) => item.id !== obj.id)
-      )
-    } else {
-      axios.post('http://localhost:3001/cart', obj)
-      setCartItems((cartItems) => [...cartItems, obj])
+  const onAddToCart = async (obj) => {
+    try {
+      if (cartItems.find((item) => item.id === obj.id)) {
+        setCartItems((cartItems) =>
+          cartItems.filter((item) => item.id !== obj.id)
+        )
+        await axios.delete(`http://localhost:3001/cart/${obj.id}`)
+      } else {
+        setCartItems((cartItems) => [...cartItems, obj])
+        await axios.post('http://localhost:3001/cart', obj)
+      }
+    } catch {
+      alert('Failed to add to cart')
     }
   }
 
-  const onRemoveFromCart = (id) => {
-    axios.delete(`http://localhost:3001/cart/${id}`)
-    setCartItems((cartItems) => cartItems.filter((item) => item.id !== id))
+  const onRemoveFromCart = async (id) => {
+    try {
+      setCartItems((cartItems) => cartItems.filter((item) => item.id !== id))
+      await axios.delete(`http://localhost:3001/cart/${id}`)
+    } catch {
+      alert('Failed to remove from cart')
+    }
   }
 
   const onAddToFavorite = async (obj) => {
@@ -98,7 +111,7 @@ function App() {
       }}
     >
       <div className="wrapper clear">
-        {isCartOpened && <Drawer onRemoveFromCart={onRemoveFromCart} />}
+        <Drawer onRemoveFromCart={onRemoveFromCart} opened={isCartOpened} />
         <Header onOpenCart={() => setIsCartOpened(true)} />
         <Routes>
           <Route
