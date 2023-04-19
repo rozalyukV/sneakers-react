@@ -7,6 +7,7 @@ import Header from '../header/Header'
 import Drawer from '../drawer/Drawer'
 import Home from '../../pages/home/Home'
 import Favorites from '../../pages/favorites/Favorites'
+import Orders from '../../pages/orders/Orders'
 
 function App() {
   const [items, setItems] = useState([])
@@ -91,6 +92,7 @@ function App() {
         isItemAdded,
         isItemFavorite,
         onAddToFavorite,
+        onAddToCart,
         setIsCartOpened,
         setCartItems,
       }}
@@ -106,13 +108,12 @@ function App() {
                 searchValue={searchValue}
                 setSearchValue={setSearchValue}
                 onChangeSearchInput={onChangeSearchInput}
-                onAddToFavorite={onAddToFavorite}
-                onAddToCart={onAddToCart}
                 isLoading={isLoading}
               />
             }
           />
           <Route path="/favorites" element={<Favorites />} />
+          <Route path="/orders" element={<Orders />} />
         </Routes>
       </div>
     </AppContext.Provider>

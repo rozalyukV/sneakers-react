@@ -7,11 +7,9 @@ const Home = ({
   searchValue,
   setSearchValue,
   onChangeSearchInput,
-  onAddToFavorite,
-  onAddToCart,
   isLoading,
 }) => {
-  const { items } = useContext(AppContext)
+  const { items, onAddToCart, onAddToFavorite } = useContext(AppContext)
 
   const renderItems = () => {
     const filteredItems = items.filter((item) =>

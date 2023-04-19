@@ -75,5 +75,103 @@
   ],
   "cart": [],
   "favorites": [],
-  "orders": []
+  "orders": [
+    {
+      "cartItems": [
+        {
+          "id": 2,
+          "title": "Men's Sneakers Nike Air Max 270",
+          "imageUrl": "/img/sneakers/2.jpg",
+          "price": 250
+        },
+        {
+          "id": 3,
+          "title": "Men's Sneakers Nike Blazer Mid Suede",
+          "imageUrl": "/img/sneakers/3.jpg",
+          "price": 180
+        },
+        {
+          "id": 4,
+          "title": "Sneakers Puma X Aka Boku Future Rider",
+          "imageUrl": "/img/sneakers/4.jpg",
+          "price": 300
+        }
+      ],
+      "id": 1
+    },
+    {
+      "cartItems": [
+        {
+          "id": 2,
+          "title": "Men's Sneakers Nike Air Max 270",
+          "imageUrl": "/img/sneakers/2.jpg",
+          "price": 250
+        },
+        {
+          "id": 3,
+          "title": "Men's Sneakers Nike Blazer Mid Suede",
+          "imageUrl": "/img/sneakers/3.jpg",
+          "price": 180
+        },
+        {
+          "id": 4,
+          "title": "Sneakers Puma X Aka Boku Future Rider",
+          "imageUrl": "/img/sneakers/4.jpg",
+          "price": 300
+        }
+      ],
+      "id": 2
+    },
+    {
+      "cartItems": [
+        {
+          "id": 3,
+          "title": "Men's Sneakers Nike Blazer Mid Suede",
+          "imageUrl": "/img/sneakers/3.jpg",
+          "price": 180
+        }
+      ],
+      "id": 3
+    },
+    {
+      "cartItems": [
+        {
+          "id": 6,
+          "title": "Men's Sneakers Nike Kyrie 7",
+          "imageUrl": "/img/sneakers/6.jpg",
+          "price": 280
+        },
+        {
+          "id": 7,
+          "title": "Men's Sneakers Jordan Air Jordan 11",
+          "imageUrl": "/img/sneakers/7.jpg",
+          "price": 210
+        },
+        {
+          "id": 11,
+          "title": "Sneakers X Aka Boku Future Rider",
+          "imageUrl": "/img/sneakers/11.jpg",
+          "price": 230
+        }
+      ],
+      "id": 4
+    },
+    {
+      "cartItems": [
+        {
+          "id": 3,
+          "title": "Men's Sneakers Nike Blazer Mid Suede",
+          "imageUrl": "/img/sneakers/3.jpg",
+          "price": 180
+        },
+        {
+          "id": 2,
+          "title": "Men's Sneakers Nike Air Max 270",
+          "imageUrl": "/img/sneakers/2.jpg",
+          "price": 250
+        }
+      ],
+      "id": 5
+    }
+  ]
 }

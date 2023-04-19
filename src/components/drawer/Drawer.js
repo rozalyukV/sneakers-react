@@ -1,11 +1,13 @@
 import { useContext, useState } from 'react'
 import axios from 'axios'
-import AppContext from '../../constext/constext'
 
+import AppContext from '../../constext/constext'
 import Info from '../info/Info'
+import { useCart } from '../../hooks/useCart/useCart'
 
 const Drawer = ({ onRemoveFromCart }) => {
-  const { cartItems, setIsCartOpened, setCartItems } = useContext(AppContext)
+  const { setIsCartOpened } = useContext(AppContext)
+  const { cartItems, setCartItems, totalPrice } = useCart()
   const [orderId, setOrderId] = useState(null)
   const [isOrderComplete, setIsOrderComplete] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -83,12 +85,12 @@ const Drawer = ({ onRemoveFromCart }) => {
                 <li>
                   <span>Total: </span>
                   <div></div>
-                  <b>1350$</b>
+                  <b>{totalPrice}$</b>
                 </li>
                 <li>
                   <span>Tax 5%</span>
                   <div></div>
-                  <b>67.50$</b>
+                  <b>{(totalPrice / 100) * 5}$</b>
                 </li>
               </ul>
               <button

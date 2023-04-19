@@ -46,10 +46,12 @@ const Card = ({
       ) : (
         <>
           <div className={styles.favorite} onClick={toggleFavorite}>
-            <img
-              src={isItemFavorite(id) ? 'img/liked.svg' : '/img/unliked.svg'}
-              alt="Unliked"
-            />
+            {onFavoriteAdd && (
+              <img
+                src={isItemFavorite(id) ? 'img/liked.svg' : '/img/unliked.svg'}
+                alt="Unliked"
+              />
+            )}
           </div>
           <img width={133} height={112} src={imageUrl} alt="Sneakers" />
           <h5>{title}</h5>
@@ -58,14 +60,18 @@ const Card = ({
               <span>Price:</span>
               <b>{price} $</b>
             </div>
-            <img
-              className={styles.plus}
-              onClick={toggleChecked}
-              src={
-                isItemAdded(id) ? './img/btn-checked.svg' : './img/btn-plus.svg'
-              }
-              alt="Plus"
-            />
+            {onCartAdd && (
+              <img
+                className={styles.plus}
+                onClick={toggleChecked}
+                src={
+                  isItemAdded(id)
+                    ? './img/btn-checked.svg'
+                    : './img/btn-plus.svg'
+                }
+                alt="Plus"
+              />
+            )}
           </div>
         </>
       )}
