@@ -51,7 +51,7 @@ const Drawer = ({ onRemoveFromCart, opened }) => {
           Cart
           <img
             className="closeBtn cu-p"
-            src="/img/btn-close.svg"
+            src="img/btn-close.svg"
             alt="Close"
             onClick={() => setIsCartOpened(false)}
           />
@@ -76,7 +76,7 @@ const Drawer = ({ onRemoveFromCart, opened }) => {
                   <img
                     onClick={() => onRemoveFromCart(obj.id)}
                     className="closeBtn"
-                    src="/img/btn-close.svg"
+                    src="img/btn-close.svg"
                     alt="Close"
                   />
                 </div>
@@ -100,7 +100,7 @@ const Drawer = ({ onRemoveFromCart, opened }) => {
                 onClick={onClickOrder}
                 className="greenButton"
               >
-                Order <img src="/img/arrow.svg" alt="Arrow" />
+                Order <img src="img/arrow.svg" alt="Arrow" />
               </button>
             </div>
           </div>
@@ -113,9 +113,7 @@ const Drawer = ({ onRemoveFromCart, opened }) => {
                 : 'Add at least one pair of sneakers to place an order'
             }
             image={
-              isOrderComplete
-                ? '/img/complete-order.jpg'
-                : '/img/empty-cart.jpg'
+              isOrderComplete ? 'img/complete-order.jpg' : 'img/empty-cart.jpg'
             }
           />
         )}
